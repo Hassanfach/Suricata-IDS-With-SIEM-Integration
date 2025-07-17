@@ -50,5 +50,29 @@ To follow this guide, you need:
    git clone https://github.com/yourusername/SIEM-Suricata-Elastic-Stack.git
    cd SIEM-Suricata-Elastic-Stack
 
-## Install IDS
-- Clone then bash
+## IDS Automated Installation
+Clone this repository to your machine:
+```
+
+  git clone https://github.com/Hassanfach/Suricata-IDS-With-SIEM-Integration.git
+  cd Suricata-IDS-With-SIEM-Integration
+
+```
+
+
+Make the installation script executable:
+```
+
+chmod +x install_suricata.sh
+
+```
+
+Run the script with root privileges. It will automatically install Suricata and download the correct configuration files from this repository.
+
+```
+
+sudo ./install_suricata.sh
+```
+
+
+The script will back up your existing Suricata configuration and replace it with the suricata.yaml and custom.rules files from this project.
