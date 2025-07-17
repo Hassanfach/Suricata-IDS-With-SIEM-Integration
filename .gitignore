@@ -1,0 +1,17 @@
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Sensitive files
+*.key
+*.pem
+*.secret
