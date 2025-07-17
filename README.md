@@ -19,7 +19,6 @@ To follow this guide, you need:
   - **Elasticsearch Server**: For hosting Elasticsearch and Kibana, with 4GB RAM, 2 CPUs, and a non-root sudo user.
 - **Private network connectivity** between the servers (e.g., via a VPN like WireGuard or a cloud provider’s private networking). Alternatively, run all components on a single server for testing.
 - **Suricata signatures**: Configured rules to generate alerts (see `docs/` for guidance on setting up Suricata rules).
-- **Firewall**: Configured to allow necessary traffic (instructions provided in the guide).
 
 ## Getting Started
 1. **Read the Documentation**: Follow the detailed guide in `docs/How-To-Build-A-SIEM-with-Suricata-and-Elastic-Stack-on-Ubuntu-20.04.md` for step-by-step instructions.
