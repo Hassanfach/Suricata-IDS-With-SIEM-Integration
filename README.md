@@ -41,6 +41,7 @@ To follow this guide, you need:
   - `configure_elasticsearch.sh`
   - `configure_kibana.sh`
   - `install_filebeat.sh`
+  - `install_ids.sh`
 - **`.gitignore`**: Specifies files to exclude from version control.
 
 ## Usage
