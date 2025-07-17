@@ -82,8 +82,7 @@ allow necessary traffic (instructions provided in the guide).
 1.  Clone this repository:
 
     ``` bash
-    git clone https://github.com/yourusername/SIEM-Suricata-Elastic-Stack.git
-    cd SIEM-Suricata-Elastic-Stack
+    git clone https://github.com/Hassanfach/Suricata-IDS-With-SIEM-Integration/tree/main
     ```
 
 2.  Follow the guide in `docs/` to set up Suricata, Elasticsearch,
