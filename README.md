@@ -52,6 +52,7 @@ allow necessary traffic (instructions provided in the guide).
         credentials.
     -   `install_filebeat.sh`: Installs and configures Filebeat on the
         Suricata server.
+    -   `install_ids.sh` : Installs and configures Suricata as IDS
 4.  **Access Kibana**: Use an SSH tunnel to connect to Kibana and
     explore the SIEM dashboards.
 
@@ -66,12 +67,14 @@ allow necessary traffic (instructions provided in the guide).
         keys.
     -   `filebeat.yml`: Filebeat settings for parsing Suricata logs and
         sending to Elasticsearch.
+    -   `suricata.yaml`: Suricata settings
 -   **`scripts/`**: Automation scripts for installation and
     configuration:
     -   `install_elasticsearch_kibana.sh`
     -   `configure_elasticsearch.sh`
     -   `configure_kibana.sh`
     -   `install_filebeat.sh`
+    -   `install_ids.sh`
 -   **`.gitignore`**: Specifies files to exclude from version control.
 
 ## Usage
