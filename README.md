@@ -68,6 +68,7 @@ allow necessary traffic (instructions provided in the guide).
     -   `filebeat.yml`: Filebeat settings for parsing Suricata logs and
         sending to Elasticsearch.
     -   `suricata.yaml`: Suricata settings
+    -   `custom.rules`: Rules to detect common threat
 -   **`scripts/`**: Automation scripts for installation and
     configuration:
     -   `install_elasticsearch_kibana.sh`
