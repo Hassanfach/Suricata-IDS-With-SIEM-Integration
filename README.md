@@ -101,6 +101,7 @@ allow necessary traffic (instructions provided in the guide).
     bash scripts/configure_elasticsearch.sh <private_ip> <interface>
     bash scripts/configure_kibana.sh <private_ip> <kibana_system_password>
     bash scripts/install_filebeat.sh <private_ip> <elastic_password>
+    bash scripts/install_ids.sh
     ```
 
     Replace `<private_ip>`, `<interface>`, `<kibana_system_password>`,
