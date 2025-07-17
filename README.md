@@ -36,6 +36,8 @@ To follow this guide, you need:
   - `elasticsearch.yml`: Elasticsearch settings for networking and security.
   - `kibana.yml`: Kibana settings for networking and encryption keys.
   - `filebeat.yml`: Filebeat settings for parsing Suricata logs and sending to Elasticsearch.
+  - `suricata.yaml` : Suricata settings
+  - `custom.rules` : Rules to detect common attack
 - **`scripts/`**: Automation scripts for installation and configuration:
   - `install_elasticsearch_kibana.sh`
   - `configure_elasticsearch.sh`
