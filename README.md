@@ -49,3 +49,6 @@ To follow this guide, you need:
    ```bash
    git clone https://github.com/yourusername/SIEM-Suricata-Elastic-Stack.git
    cd SIEM-Suricata-Elastic-Stack
+
+## Install IDS
+- Clone then bash
