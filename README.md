@@ -42,7 +42,6 @@ To follow this guide, you need:
   - `configure_elasticsearch.sh`
   - `configure_kibana.sh`
   - `install_filebeat.sh`
-- **`LICENSE`**: MIT License for this project.
 - **`.gitignore`**: Specifies files to exclude from version control.
 
 ## Usage
