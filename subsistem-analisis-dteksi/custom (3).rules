@@ -1,0 +1,60 @@
+
+# NMAP
+
+drop tcp $EXTERNAL_NET any -> $HOME_NET any (msg:"ET SCAN NMAP -sS window 4096"; fragbits:!D; dsize:0; flags:S; ack:0; window:4096; threshold: type both, track by_dst, count 1, seconds 60; reference:url,doc.emergingthreats.net/2009584; classtype:attempted-recon; sid:2009584; rev:2; metadata:created_at 2010_07_30, updated_at 2010_07_30;)
+
+drop tcp $EXTERNAL_NET any -> $HOME_NET any (msg:"ET SCAN NMAP -sS window 3072"; fragbits:!D; dsize:0; flags:S; ack:0; window:3072; threshold: type both, track by_dst, count 1, seconds 60; reference:url,doc.emergingthreats.net/2009583; classtype:attempted-recon; sid:2009583; rev:3; metadata:created_at 2010_07_30, updated_at 2010_07_30;)
+
+drop tcp $EXTERNAL_NET any -> $HOME_NET any (msg:"ET SCAN NMAP -sS window 1024"; fragbits:!D; dsize:0; flags:S; ack:0; window:1024; threshold: type both, track by_dst, count 1, seconds 60; reference:url,doc.emergingthreats.net/2009582; classtype:attempted-recon; sid:2009582; rev:3; metadata:created_at 2010_07_30, updated_at 2010_07_30;)
+
+# NMAP SYN scan (speeds T1–T5)
+
+drop tcp any any -> any [21,22,23,25,53,80,88,110,135,137,138,139,143,161,389,443,445,465,514,587,636,853,993,995,1194,1433,1720,3306,3389,8080,8443,11211,27017,51820] (msg:"POSSIBLE DDOS/PORT SCAN (NMAP -sS)"; flow:to_server,stateless; flags:S; window:1024; threshold:type threshold, track by_src, count 20, seconds 70; classtype:attempted-recon; sid:3400001; priority:2; rev:1;)
+
+drop tcp any any -> any ![21,22,23,25,53,80,88,110,135,137,138,139,143,161,389,443,445,465,514,587,636,853,993,995,1194,1433,1720,3306,3389,8080,8443,11211,27017,51820] (msg:"POSSIBLE DDOS/ PORT SCAN (NMAP -sS)"; flow:to_server,stateless; flags:S; window:1024; threshold:type threshold, track by_src, count 7, seconds 135; classtype:attempted-recon; sid:3400002; priority:2; rev:2;)
+
+# NMAP TCP connect scan -sT
+
+drop tcp any ![22,25,53,80,88,143,443,445,465,587,853,993,1194,8080,51820] -> any ![22,25,53,80,88,143,443,445,465,587,853,993,1194,8080,51820] (msg:"POSSIBLE PORT SCAN (NMAP -sT)"; flow:to_server; flags:S; window:32120; threshold:type threshold, track by_src, count 20, seconds 70; classtype:attempted-recon; sid:3400003; rev:3;)
+
+# ACK SCAN -sA
+
+drop tcp any ![22,25,53,80,88,143,443,445,465,587,853,993,1194,8080,51820] -> any ![22,25,53,80,88,143,443,445,465,587,853,993,1194,8080,51820] (msg:"POSSIBLE PORT SCAN (NMAP -sA)"; flags:A; flow:stateless; window:1024; threshold:type threshold, track by_dst, count 20, seconds 70; classtype:attempted-recon; sid:3400004; priority:2; rev:5;)
+
+# XMAS SCAN -sX
+
+drop tcp any any -> any any (msg:"POSSIBLE PORT SCAN (NMAP -sX)"; flags:FPU; flow:to_server,stateless; threshold:type threshold, track by_src, count 3, seconds 120; classtype:attempted-recon; sid:3400005; rev:2;)
+
+# FRAGMENTED SCAN -f
+
+drop ip any any -> any any (msg:"POSSIBLE SCAN FRAGMENTED (NMAP -f)"; fragbits:MD; threshold:type limit, track by_src, count 3, seconds 1210; classtype:attempted-recon; sid:3400006; priority:2; rev:6;)
+
+# UDP SCAN -sU
+
+drop udp any any -> any [53,67,68,69,123,161,162,389,520,1026,1027,1028,1029,1194,1434,1900,11211,12345,27017,51820] (msg:"POSSIBLE PORT SCAN (NMAP -sU)"; flow:to_server,stateless; dsize:0; threshold:type threshold, track by_src, count 20, seconds 70; classtype:attempted-recon; sid:3400007; priority:2; rev:6;)
+
+drop udp any any -> any ![53,67,68,69,123,161,162,389,520,1026,1027,1028,1029,1194,1434,1900,11211,12345,27017,51820] (msg:"POSSIBLE PORT SCAN (NMAP -sU)"; flow:to_server,stateless; dsize:0; threshold:type threshold, track by_src, count 7, seconds 135; classtype:attempted-recon; sid:3400008; priority:2; rev:6;)
+
+# SHELL / MSF / Metasploit port 4444
+
+drop tcp any ![21,22,23,25,53,80,88,110,135,137,138,139,143,161,389,443,445,465,514,587,636,853,993,995,1194,1433,1720,3306,3389,8080,8443,11211,27017,51820] -> any 4444 (msg:"POSSIBLE SCAN SHELL M-SPLOIT TCP"; classtype:trojan-activity; sid:3400020; priority:1; rev:2;)
+
+drop udp any ![53,67,68,69,123,161,162,389,520,1026,1027,1028,1029,1194,1434,1900,11211,12345,27017,51820] -> any 4444 (msg:"POSSIBLE SCAN SHELL M-SPLOIT UDP"; classtype:trojan-activity; sid:3400021; priority:1; rev:2;)
+
+# SQL Injection detection
+
+drop http any any -> any any (msg:"Possible SQL Injection attack (Contains single quote)"; flow:established,to_server; content:"'"; nocase; http_uri; sid:1;)
+drop http any any -> any any (msg:"Possible SQL Injection attack (Contains UNION)"; flow:established,to_server; content:"union"; nocase; http_uri; sid:2;)
+drop http any any -> any any (msg:"Possible SQL Injection attack (Contains SELECT)"; flow:established,to_server; content:"select"; nocase; http_uri; sid:3;)
+drop http any any -> any any (msg:"Possible SQL Injection attack (Contains single quote in POST data)"; flow:established,to_server; content:"'"; nocase; http_client_body; sid:4;)
+drop http any any -> any any (msg:"Possible SQL Injection attack (Contains UNION in POST data)"; flow:established,to_server; content:"union"; nocase; http_client_body; sid:5;)
+drop http any any -> any any (msg:"Possible SQL Injection attack (Contains SELECT in POST data)"; flow:established,to_server; content:"select"; nocase; http_client_body; sid:6;)
+
+# DDoS detection
+
+alert tcp any any -> $HOME_NET 80 (msg:"Possible DDoS attack"; flags:S; flow:stateless; threshold:type both, track by_dst, count 200, seconds 1; sid:1000001; rev:1;)
+
+# SSH Brute Force
+
+alert tcp any any -> any 22 (msg:"Potential SSH Brute Attempt"; classtype:attempted-recon; flow:to_server; flags:S; threshold:type both, track by_src, count 3, seconds 50; sid:1000009; rev:1;)
+alert tcp any any -> any 22 (msg:"Potential SSH Brute Force Attempt"; flow:to_server,established; detection_filter:track by_src, count 18, seconds 60; classtype:attempted-recon; sid:1000010; rev:1;)
